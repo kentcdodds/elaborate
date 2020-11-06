@@ -24,5 +24,3 @@ jobs:
 
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v1
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
