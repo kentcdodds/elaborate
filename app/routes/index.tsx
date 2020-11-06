@@ -9,7 +9,7 @@ export function meta() {
 }
 
 export default function Index() {
-  let data = useRouteData()
+  const data = useRouteData()
 
   return (
     <div style={{textAlign: 'center', padding: 20}}>

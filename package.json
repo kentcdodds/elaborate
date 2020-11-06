@@ -26,7 +26,7 @@
     "test:e2e": "start-server-and-test dev http://localhost:3000 cy:open",
     "test:e2e:run": "cross-env PORT=8811 start-server-and-test start http://localhost:8811 cy:run",
     "test": "kcd-scripts test",
-    "lint": "kcd-scripts lint",
+    "lint": "kcd-scripts lint --ext js,ts,tsx",
     "format": "kcd-scripts format",
     "typecheck": "tsc --noEmit",
     "validate": "kcd-scripts validate",
@@ -68,6 +68,7 @@
     "extends": "./node_modules/kcd-scripts/eslint.js",
     "rules": {
       "no-undef": "off",
+      "import/no-unresolved": "off",
       "react/prop-types": "off",
       "react/no-adjacent-inline-elements": "off",
       "no-console": "off",
