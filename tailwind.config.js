@@ -1,5 +1,12 @@
 // tailwind.config.js
 module.exports = {
+  experimental: {
+    darkModeVariant: true,
+  },
+  variants: {
+    opacity: ['responsive', 'hover', 'focus', 'dark'],
+    boxShadow: ['responsive', 'hover', 'focus', 'dark'],
+  },
   purge: {
     mode: 'layers',
     content: [

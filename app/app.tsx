@@ -9,10 +9,11 @@ export default function App() {
         <Meta />
         <Styles />
       </head>
-      <body>
+      {/* tailwind variants need a class name here */}
+      <body className="text-green-900 bg-gray-100 dark:bg-gray-800 dark:text-green-300">
         <Routes />
         <Scripts />
-        <footer>
+        <footer className="pt-20 pb-8 text-center">
           <p>This is a fun little remix project by Kent</p>
         </footer>
       </body>
