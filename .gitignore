@@ -8,3 +8,6 @@ node_modules/
 /coverage
 /cypress/videos
 /cypress/screenshots
+
+# styles are in the styles/ directory and compiled to the app directory
+app/**/*.css

@@ -1,9 +1,7 @@
 import * as React from 'react'
-import {Meta, Scripts, Styles, Routes, useGlobalData} from '@remix-run/react'
+import {Meta, Scripts, Styles, Routes} from '@remix-run/react'
 
 export default function App() {
-  const data = useGlobalData()
-
   return (
     <html lang="en">
       <head>
@@ -15,7 +13,7 @@ export default function App() {
         <Routes />
         <Scripts />
         <footer>
-          <p>This page was rendered at {data.date.toLocaleString()}</p>
+          <p>This is a fun little remix project by Kent</p>
         </footer>
       </body>
     </html>
