@@ -33,13 +33,10 @@ jobs:
         env:
           PORT: 8811
 
-  deploy:
-    needs: main
-    # only deploy main branch on pushes
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-    runs-on: ubuntu-latest
-    steps:
       - name: 🚀 Deploy
+        # only deploy main branch on pushes
+        if:
+          ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
         uses: akhileshns/heroku-deploy@v3.6.8
         env:
           # "HD_" is removed by akhileshns/heroku-deploy
