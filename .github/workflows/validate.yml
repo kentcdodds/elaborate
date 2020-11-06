@@ -22,11 +22,11 @@ jobs:
       - name: ▶️ Run validate script
         run: npm run validate
 
-      - name: 🌳 Cypress run
-        uses: cypress-io/github-action@v2
-
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v1
+
+      - name: 🌳 Cypress run
+        uses: cypress-io/github-action@v2
         with:
           start: npm start
         env:
