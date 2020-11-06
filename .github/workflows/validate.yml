@@ -3,7 +3,7 @@ on: [push, pull_request]
 env:
   REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 jobs:
-  setup:
+  main:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
@@ -22,5 +22,12 @@ jobs:
       - name: ▶️ Run validate script
         run: npm run validate
 
+      - name: 🌳 Cypress run
+        uses: cypress-io/github-action@v2
+
       - name: ⬆️ Upload coverage report
         uses: codecov/codecov-action@v1
+        with:
+          start: npm start
+        env:
+          PORT: 8811
