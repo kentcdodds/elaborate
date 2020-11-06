@@ -1,5 +1,7 @@
 name: validate
 on: [push, pull_request]
+env:
+  REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -14,8 +16,6 @@ jobs:
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
-        env:
-          REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
         with:
           useLockFile: false
 
