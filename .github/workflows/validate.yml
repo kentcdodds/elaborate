@@ -33,6 +33,12 @@ jobs:
         env:
           PORT: 8811
 
+  deploy:
+    needs: main
+    # only deploy main branch on pushes
+    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
       - name: 🚀 Deploy
         uses: akhileshns/heroku-deploy@v3.6.8
         env:
