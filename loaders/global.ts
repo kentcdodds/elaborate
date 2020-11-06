@@ -6,4 +6,5 @@ const loader: DataLoader = () => {
   }
 }
 
+// https://github.com/remix-run/discuss/issues/14
 module.exports = loader
