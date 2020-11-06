@@ -1,0 +1,26 @@
+name: validate
+on: [push, pull_request]
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+        env:
+          REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
+        with:
+          useLockFile: false
+
+      - name: ▶️ Run validate script
+        run: npm run validate
+
+      - name: ⬆️ Upload coverage report
+        uses: codecov/codecov-action@v1

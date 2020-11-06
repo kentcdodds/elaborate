@@ -1,7 +1,7 @@
-import React from "react";
+import * as React from 'react'
 
 export function meta() {
-  return { title: "Ain't nothing here" };
+  return {title: "Ain't nothing here"}
 }
 
 export default function FourOhFour() {
@@ -9,5 +9,5 @@ export default function FourOhFour() {
     <div>
       <h1>404</h1>
     </div>
-  );
+  )
 }

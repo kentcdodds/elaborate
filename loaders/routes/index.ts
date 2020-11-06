@@ -1,9 +1,9 @@
-import type { DataLoader } from "@remix-run/core";
+import type {DataLoader} from '@remix-run/core'
 
-let loader: DataLoader = async () => {
+const loader: DataLoader = () => {
   return {
-    message: "this is awesome 😎"
-  };
-};
+    message: 'this is awesome 😎',
+  }
+}
 
-export = loader;
+module.exports = loader

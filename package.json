@@ -1,35 +1,10 @@
 {
-  "name": "remix-starter-express",
+  "name": "elaborate",
   "version": "1.0.0",
-  "scripts": {
-    "build": "cross-env NODE_ENV=production remix build && tsc -b",
-    "dev": "concurrently \"remix run\" \"tsc -b -w\" \"nodemon --ignore app server.js\"",
-    "start": "cross-env NODE_ENV=production node server.js"
-  },
-  "dependencies": {
-    "@remix-run/cli": "^0.6.2",
-    "@remix-run/express": "^0.6.2",
-    "@remix-run/loader": "^0.6.2",
-    "@remix-run/react": "^0.6.2",
-    "express": "^4.17.1",
-    "morgan": "^1.10.0",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-router": "^6.0.0-beta.0",
-    "react-router-dom": "^6.0.0-beta.0"
-  },
-  "devDependencies": {
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
-    "concurrently": "^5.3.0",
-    "cross-env": "^7.0.2",
-    "nodemon": "^2.0.5",
-    "typescript": "^4.0.3"
-  },
   "engines": {
-    "node": "12"
+    "node": "14"
   },
-  "description": "Welcome to Remix!",
+  "description": "A place to elaborate on what you learned",
   "main": "remix.config.js",
   "repository": {
     "type": "git",
@@ -41,5 +16,68 @@
   "bugs": {
     "url": "https://github.com/kentcdodds/elaborate/issues"
   },
-  "homepage": "https://github.com/kentcdodds/elaborate#readme"
+  "homepage": "https://github.com/kentcdodds/elaborate#readme",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production concurrently --names \"remix-build,tsc\" --prefix-colors \"magenta,blue\" \"remix build\" \"tsc --build\"",
+    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,tsc,nodemon\" --prefix-colors \"magenta,blue,green\" \"remix run\" \"tsc --build --watch\" \"nodemon --delay 1000ms --ignore app server.js\"",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "test": "kcd-scripts test",
+    "lint": "kcd-scripts lint",
+    "format": "kcd-scripts format",
+    "typecheck": "tsc --noEmit",
+    "validate": "kcd-scripts validate",
+    "setup": "npm install && npm run validate"
+  },
+  "dependencies": {
+    "@remix-run/cli": "^0.6.2",
+    "@remix-run/express": "^0.6.2",
+    "@remix-run/loader": "^0.6.2",
+    "@remix-run/react": "^0.6.2",
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router": "^6.0.0-beta.0",
+    "react-router-dom": "^6.0.0-beta.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.1",
+    "@testing-library/user-event": "^12.2.0",
+    "@types/react": "^16.9.56",
+    "@types/react-dom": "^16.9.9",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "eslint-import-resolver-jest": "^3.0.0",
+    "kcd-scripts": "^6.7.0",
+    "nodemon": "^2.0.6",
+    "typescript": "^4.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "kcd-scripts pre-commit"
+    }
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/kcd-scripts/eslint.js",
+    "rules": {
+      "react/prop-types": "off",
+      "react/no-adjacent-inline-elements": "off",
+      "no-console": "off",
+      "react/jsx-filename-extension": [
+        "error",
+        {
+          "extensions": [
+            ".js",
+            ".tsx"
+          ]
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "build",
+    "*.d.ts"
+  ]
 }

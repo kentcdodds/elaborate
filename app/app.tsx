@@ -1,8 +1,8 @@
-import React from "react";
-import { Meta, Scripts, Styles, Routes, useGlobalData } from "@remix-run/react";
+import * as React from 'react'
+import {Meta, Scripts, Styles, Routes, useGlobalData} from '@remix-run/react'
 
 export default function App() {
-  let data = useGlobalData();
+  const data = useGlobalData()
 
   return (
     <html lang="en">
@@ -19,5 +19,5 @@ export default function App() {
         </footer>
       </body>
     </html>
-  );
+  )
 }
