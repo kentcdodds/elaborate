@@ -37,6 +37,7 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.6.8
         env:
           NODE_ENV: production
+          REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: elaborate
