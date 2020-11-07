@@ -1,5 +1,4 @@
 import * as React from 'react'
-// import {useRouteData} from '@remix-run/react'
 
 export function meta() {
   return {
@@ -39,9 +38,6 @@ function Article() {
 }
 
 function Index() {
-  // FIXME: don't commit this
-  // const data = useRouteData()
-
   return (
     <div>
       <header className="max-w-md m-auto text-center">
