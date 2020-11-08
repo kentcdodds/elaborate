@@ -9,7 +9,7 @@
     "css:build": "postcss --config ./postcss.config.js ../styles --base ../styles --dir ../app/ --env production",
     "css:watch": "postcss --config ./postcss.config.js ../styles --base ../styles --dir ../app/ -w",
     "dev": "concurrently --names \"css,stories\" --prefix-colors \"cyan,magenta\" \"npm run css:watch\" \"start-storybook -p 6006 --no-dll --no-version-updates --no-release-notes --quiet\"",
-    "build": "npm run css:build && build-storybook --no-dll"
+    "build": "npm run css:build && build-storybook --no-dll --quiet"
   },
   "keywords": [],
   "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com/)",
