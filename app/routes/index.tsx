@@ -51,7 +51,7 @@ function Article({article}: {article: ArticleType}) {
 }
 
 function Index() {
-  const articles: Array<ArticleType> = useRouteData()
+  const articles = useRouteData<Array<ArticleType>>()
   return (
     <div>
       <header className="max-w-md m-auto text-center">
