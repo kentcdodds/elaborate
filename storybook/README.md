@@ -1,4 +1,6 @@
-# elaborate storybook
+# [elaborate storybook](https://elaborate.netlify.app)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0810f882-30ea-4448-b202-7717e680ddce/deploy-status)](https://app.netlify.com/sites/elaborate/deploys)
 
 To run this storybook, you'll need to install dependencies in this directory.
 Then run `npm run dev` to get the storybook running.
