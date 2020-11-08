@@ -7,22 +7,17 @@ module.exports = {
   ],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 
-  // TODO: make this work
-  // webpackFinal: async config => {
-  //   // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
-  //   // You can change the configuration based on that.
-  //   // 'PRODUCTION' is used when building the static version of storybook.
-
-  //   config.plugins.unshift(
-  //     new webpack.NormalModuleReplacementPlugin(
-  //       /\/@remix-run\/react/,
-  //       resource => require.resolve('./@remix-run/react.mock.js'),
-  //     ),
-  //   )
-
-  //   console.log(config)
-
-  //   // Return the altered config
-  //   return config
-  // },
+  webpackFinal: async config => {
+    config.plugins.push(
+      // swap @remix-run/react for our own mock
+      // this way folks don't have to have remix installed to work
+      // on components that are built using remix...
+      // To handle useRouteData, stories must expose a routeData property
+      new webpack.NormalModuleReplacementPlugin(
+        /\/@remix-run\/react/,
+        require.resolve('./@remix-run/react.mock.js'),
+      ),
+    )
+    return config
+  },
 }

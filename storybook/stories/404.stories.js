@@ -9,3 +9,4 @@ const Template = args => <FourOhFour {...args} />
 
 export const Main = Template.bind({})
 Main.args = {}
+Main.routeData = {fakeFourOhFor: true}

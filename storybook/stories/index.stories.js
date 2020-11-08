@@ -9,3 +9,4 @@ const Template = args => <Index {...args} />
 
 export const Home = Template.bind({})
 Home.args = {}
+Home.routeData = {fakeIndex: true}

@@ -11,3 +11,9 @@ node_modules/
 
 # styles are in the styles/ directory and compiled to the app directory
 app/**/*.css
+
+storybook/storybook-static
+
+# these are copied from the root dir
+storybook/tailwind.config.js
+storybook/postcss.config.js
