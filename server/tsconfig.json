@@ -2,7 +2,8 @@
   "extends": "../config/shared-tsconfig.json",
   "include": ["**/*"],
   "compilerOptions": {
-    "outDir": "../build/loaders",
+    "baseUrl": ".",
+    "outDir": "../build",
     "module": "commonjs"
   }
 }

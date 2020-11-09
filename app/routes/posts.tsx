@@ -9,7 +9,7 @@ export function meta() {
   }
 }
 
-function Index() {
+function Posts() {
   return (
     <div>
       <Header />
@@ -18,4 +18,4 @@ function Index() {
   )
 }
 
-export default Index
+export default Posts

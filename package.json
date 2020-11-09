@@ -20,7 +20,7 @@
   "scripts": {
     "prebuild": "npm run css:build",
     "build": "cross-env NODE_ENV=production concurrently --names \"remix-build,tsc\" --prefix-colors \"magenta,blue\" \"remix build\" \"tsc --build\"",
-    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,tsc,css,nodemon\" --prefix-colors \"magenta,blue,cyan,green\" \"remix run\" \"tsc --build --watch\" \"npm run css:watch\" \"nodemon --delay 1000ms --ignore app server.js\"",
+    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,tsc,css,nodemon\" --prefix-colors \"magenta,blue,cyan,green\" \"remix run\" \"tsc --build --watch\" \"npm run css:watch\" \"nodemon --delay 2500ms --ignore app server.js\"",
     "start": "cross-env NODE_ENV=production node server.js",
     "css:build": "postcss styles --base styles --dir app/ --env production",
     "css:watch": "postcss styles --base styles --dir app/ -w",
