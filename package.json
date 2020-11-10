@@ -19,8 +19,8 @@
   "homepage": "https://github.com/kentcdodds/elaborate#readme",
   "scripts": {
     "prebuild": "npm run css:build",
-    "build": "cross-env NODE_ENV=production concurrently --names \"remix-build,tsc\" --prefix-colors \"magenta,blue\" \"remix build\" \"tsc --build\"",
-    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,tsc,css,nodemon\" --prefix-colors \"magenta,blue,cyan,green\" \"remix run\" \"tsc --build --watch\" \"npm run css:watch\" \"nodemon --delay 2500ms --ignore app server.js\"",
+    "build": "cross-env NODE_ENV=production concurrently --names \"remix-build,tsc\" --prefix-colors \"magenta,blue\" \"remix build\" \"tsc --build server\"",
+    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,tsc,css,nodemon\" --prefix-colors \"magenta,blue,cyan,green\" \"remix run\" \"tsc --project server --build --watch\" \"npm run css:watch\" \"nodemon --delay 2500ms --ignore app server.js\"",
     "start": "cross-env NODE_ENV=production node server.js",
     "css:build": "postcss styles --base styles --dir app/ --env production",
     "css:watch": "postcss styles --base styles --dir app/ -w",
@@ -31,7 +31,7 @@
     "test": "kcd-scripts test",
     "lint": "kcd-scripts lint",
     "format": "kcd-scripts format",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "concurrently --names \"server,app,cypress\" --prefix-colors \"red,green,blue\" \"tsc --project server --noEmit\" \"tsc --project app --noEmit\" \"tsc --project cypress --noEmit\"",
     "validate": "kcd-scripts validate",
     "setup": "npm install && npm run validate"
   },
