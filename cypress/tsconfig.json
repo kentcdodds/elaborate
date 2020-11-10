@@ -1,10 +1,12 @@
 {
   "extends": "../config/shared-tsconfig.json",
   "include": [
+    "./index.ts",
     "e2e/**/*",
     "plugins/**/*",
     "support/**/*",
-    "../node_modules/cypress"
+    "../node_modules/cypress",
+    "../node_modules/@testing-library/cypress"
   ],
   "compilerOptions": {
     "baseUrl": ".",

@@ -1,9 +1,10 @@
 import * as React from 'react'
 import {useRouteData} from '@remix-run/react'
+import * as Types from 'types'
 import {Article} from '../../components'
 
 function PostScreen() {
-  const article = useRouteData()
+  const article = useRouteData<Types.Article | null>()
   if (!article) {
     return (
       <main className="grid max-w-lg gap-12 pt-12 m-auto">

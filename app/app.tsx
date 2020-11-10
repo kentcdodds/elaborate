@@ -2,6 +2,7 @@ import * as React from 'react'
 import {Meta, Scripts, Styles, Routes} from '@remix-run/react'
 
 export default function App() {
+  console.log('hi')
   return (
     <html lang="en">
       <head>

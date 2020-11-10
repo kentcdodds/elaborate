@@ -29,7 +29,7 @@
     "test:e2e": "start-server-and-test dev http://localhost:3000 cy:open",
     "test:e2e:run": "cross-env PORT=8811 start-server-and-test start http://localhost:8811 cy:run",
     "test": "kcd-scripts test",
-    "lint": "echo \"temporarily disabled: kcd-scripts lint --ext js,ts,tsx\"",
+    "lint": "kcd-scripts lint",
     "format": "kcd-scripts format",
     "typecheck": "tsc --noEmit",
     "validate": "kcd-scripts validate",
@@ -57,16 +57,17 @@
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.1",
     "@testing-library/user-event": "^12.2.0",
+    "@types/estree": "0.0.45",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "9.8.6",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
-    "cypress": "^5.5.0",
+    "cypress": "^5.6.0",
     "eslint-import-resolver-jest": "^3.0.0",
-    "kcd-scripts": "^6.7.0",
+    "kcd-scripts": "^7.0.1",
     "nodemon": "^2.0.6",
-    "postcss-cli": "^7.1.2",
+    "postcss-cli": "7.1.2",
     "start-server-and-test": "^1.11.5",
     "typescript": "^4.0.5"
   },
@@ -75,29 +76,11 @@
       "pre-commit": "kcd-scripts pre-commit"
     }
   },
-  "eslintConfig": {
-    "extends": "./node_modules/kcd-scripts/eslint.js",
-    "rules": {
-      "no-undef": "off",
-      "import/no-unresolved": "off",
-      "react/prop-types": "off",
-      "react/no-adjacent-inline-elements": "off",
-      "no-console": "off",
-      "react/jsx-filename-extension": [
-        "error",
-        {
-          "extensions": [
-            ".js",
-            ".tsx"
-          ]
-        }
-      ]
-    }
-  },
   "eslintIgnore": [
     "node_modules",
     "coverage",
     "build",
-    "*.d.ts"
+    "*.d.ts",
+    "storybook-static"
   ]
 }
