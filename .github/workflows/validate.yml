@@ -1,5 +1,9 @@
 name: validate
-on: [push, pull_request]
+on:
+  push:
+    branches: ['main', '!all-contributors/**']
+  pull_request:
+    branches-ignore: ['all-contributors/**']
 env:
   REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 jobs:
