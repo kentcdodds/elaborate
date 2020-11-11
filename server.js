@@ -1,16 +1,10 @@
 const express = require('express')
 const admin = require('firebase-admin')
 const {createRequestHandler} = require('@remix-run/express')
-const posts = require('./data/posts')
 
 const app = express()
 
 app.use(express.static('public'))
-
-app.get('/posts/random', (req, res) => {
-  const randomPost = posts[Math.floor(Math.random() * posts.length)]
-  res.redirect(`/posts/${randomPost.id}`)
-})
 
 let googleAppCreds
 try {
@@ -24,6 +18,22 @@ admin.initializeApp({
 })
 
 const firestore = admin.firestore()
+
+app.get('/posts/random', async (req, res) => {
+  const snapshot = await firestore.collection('posts').get()
+  const posts = await Promise.all(snapshot.docs.map(toArticle))
+
+  async function toArticle(doc) {
+    const data = doc.data()
+    const author = (await data.author.get()).data()?.name ?? 'Unknown'
+    const createdDate = data.createdDate.toDate().getTime()
+    const {title, content, category} = data
+    return {id: doc.id, createdDate, author, title, content, category}
+  }
+
+  const randomPost = posts[Math.floor(Math.random() * posts.length)]
+  res.redirect(`/posts/${randomPost.id}`)
+})
 
 app.get(
   '*',
