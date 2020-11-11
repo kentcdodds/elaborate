@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {useRouteData} from '@remix-run/react'
 import * as Types from 'types'
-import {Article} from '../../components'
+import {Post} from '../../components'
 
 export function meta() {
   return {
@@ -11,11 +11,11 @@ export function meta() {
 }
 
 function Posts() {
-  const articles = useRouteData<Types.Article[]>()
+  const posts = useRouteData<Types.Post[]>()
   return (
     <main className="grid max-w-lg gap-12 pt-12 m-auto">
-      {articles.map(a => (
-        <Article key={a.id} article={a} />
+      {posts.map(a => (
+        <Post key={a.id} post={a} />
       ))}
     </main>
   )

@@ -6,7 +6,7 @@ const loader: DataLoader = async ({
   context,
 }: {
   context: Types.Context
-}): Promise<Types.Article[]> => {
+}): Promise<Types.Post[]> => {
   return getPosts(context.firestore)
 }
 

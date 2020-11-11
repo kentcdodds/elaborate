@@ -21,9 +21,9 @@ const firestore = admin.firestore()
 
 app.get('/posts/random', async (req, res) => {
   const snapshot = await firestore.collection('posts').get()
-  const posts = await Promise.all(snapshot.docs.map(toArticle))
+  const posts = await Promise.all(snapshot.docs.map(toPost))
 
-  async function toArticle(doc) {
+  async function toPost(doc) {
     const data = doc.data()
     const author = (await data.author.get()).data()?.name ?? 'Unknown'
     const createdDate = data.createdDate.toDate().getTime()

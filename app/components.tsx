@@ -39,31 +39,26 @@ const formatDate = (date: Date) =>
     year: 'numeric',
   }).format(date)
 
-function Article({article}: {article: Types.Article}) {
+function Post({post}: {post: Types.Post}) {
   return (
     <article className="p-4 transition duration-200 ease-in-out transform bg-gray-200 shadow-md dark:shadow-lg dark:bg-gray-700 hover:scale-105">
       <section>
-        <h1 className="pt-2 pb-6 text-3xl font-bold underline">
-          {article.title}
-        </h1>
-        <div className="" dangerouslySetInnerHTML={{__html: article.content}} />
+        <h1 className="pt-2 pb-6 text-3xl font-bold underline">{post.title}</h1>
+        <div className="" dangerouslySetInnerHTML={{__html: post.content}} />
         <footer className="pt-3 text-right">
-          <div>{article.author}</div>
-          <time>{formatDate(new Date(article.createdDate))}</time>
+          <div>{post.author}</div>
+          <time>{formatDate(new Date(post.createdDate))}</time>
         </footer>
       </section>
       <aside>
         <ul className="flex justify-between pt-3">
           <li>
-            <Link
-              to={`/posts/category/${article.category}`}
-              className="underline"
-            >
-              {article.category}
+            <Link to={`/posts/category/${post.category}`} className="underline">
+              {post.category}
             </Link>
           </li>
           <li>
-            <Link to={`/posts/${article.id}`} className="underline">
+            <Link to={`/posts/${post.id}`} className="underline">
               Permalink
             </Link>
           </li>
@@ -78,4 +73,4 @@ function Article({article}: {article: Types.Article}) {
   )
 }
 
-export {Header, Article}
+export {Header, Post}

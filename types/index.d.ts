@@ -1,12 +1,12 @@
 import type * as FT from '@firebase/firestore-types'
 import type {firestore} from 'firebase-admin'
 
-type ArticleDocumentData = {
+type PostDocumentData = {
   author: FT.DocumentReference<{name: string}>
   createdDate: FT.Timestamp
-} & Omit<Types.Article, 'id'>
+} & Omit<Types.Post, 'id'>
 
-type Article = {
+type Post = {
   id: string
   title: string
   content: string
@@ -26,4 +26,4 @@ type Context = {
   firestore: FixedFirebaseFirestore
 }
 
-export {Article, Context, FixedFirebaseFirestore as FirebaseFirestore}
+export {Post, Context, FixedFirebaseFirestore as FirebaseFirestore}

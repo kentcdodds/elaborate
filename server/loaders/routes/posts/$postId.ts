@@ -8,7 +8,7 @@ const loader: DataLoader = async ({
 }: {
   params: Record<string, string>
   context: Types.Context
-}): Promise<Types.Article | null> => {
+}): Promise<Types.Post | null> => {
   const posts = await getPosts(context.firestore)
   return posts.find(({id}) => id === params.postId) ?? null
 }
