@@ -34,6 +34,7 @@ jobs:
           wait-on: 'http://localhost:8811'
         env:
           PORT: 8811
+          ELABORATE_GOOGLE_APP_CREDS: ${{ secrets.ELABORATE_GOOGLE_APP_CREDS }}
 
       - name: 🚀 Deploy
         # only deploy main branch on pushes
