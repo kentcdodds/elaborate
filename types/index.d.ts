@@ -1,3 +1,11 @@
+import type * as FT from '@firebase/firestore-types'
+import type {firestore} from 'firebase-admin'
+
+type ArticleDocumentData = {
+  author: FT.DocumentReference<{name: string}>
+  createdDate: FT.Timestamp
+} & Omit<Types.Article, 'id'>
+
 type Article = {
   id: string
   title: string
@@ -7,4 +15,14 @@ type Article = {
   category: string
 }
 
-export {Article}
+class FixedFirebaseFirestore extends FT.FirebaseFirestore {
+  collection<T = FT.DocumentData>(
+    collectionPath: string,
+  ): FT.CollectionReference<T>
+}
+
+type Context = {
+  firestore: FixedFirebaseFirestore
+}
+
+export {Article, Context}

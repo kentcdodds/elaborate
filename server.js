@@ -1,4 +1,5 @@
 const express = require('express')
+const admin = require('firebase-admin')
 const {createRequestHandler} = require('@remix-run/express')
 const posts = require('./data/posts')
 
@@ -11,11 +12,17 @@ app.get('/posts/random', (req, res) => {
   res.redirect(`/posts/${randomPost.id}`)
 })
 
+admin.initializeApp({
+  credential: admin.credential.cert(require('./other/google-app-creds.json')),
+})
+
+const firestore = admin.firestore()
+
 app.get(
   '*',
   createRequestHandler({
     getLoadContext() {
-      // Whatever you return here will be passed as `context` to your loaders.
+      return {firestore}
     },
   }),
 )

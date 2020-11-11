@@ -17,3 +17,5 @@ storybook/storybook-static
 # these are copied from the root dir
 storybook/tailwind.config.js
 storybook/postcss.config.js
+
+/other/google-app-creds.json
