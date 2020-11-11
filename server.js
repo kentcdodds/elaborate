@@ -12,8 +12,15 @@ app.get('/posts/random', (req, res) => {
   res.redirect(`/posts/${randomPost.id}`)
 })
 
+let googleAppCreds
+try {
+  googleAppCreds = require('./other/google-app-creds.json')
+} catch {
+  googleAppCreds = JSON.parse(process.env.ELABORATE_GOOGLE_APP_CREDS)
+}
+
 admin.initializeApp({
-  credential: admin.credential.cert(require('./other/google-app-creds.json')),
+  credential: admin.credential.cert(googleAppCreds),
 })
 
 const firestore = admin.firestore()

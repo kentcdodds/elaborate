@@ -15,6 +15,7 @@ type Article = {
   category: string
 }
 
+// https://github.com/firebase/firebase-js-sdk/pull/4055
 class FixedFirebaseFirestore extends FT.FirebaseFirestore {
   collection<T = FT.DocumentData>(
     collectionPath: string,
@@ -25,4 +26,4 @@ type Context = {
   firestore: FixedFirebaseFirestore
 }
 
-export {Article, Context}
+export {Article, Context, FixedFirebaseFirestore as FirebaseFirestore}
