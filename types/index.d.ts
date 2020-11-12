@@ -1,5 +1,5 @@
 import type * as FT from '@firebase/firestore-types'
-import type {firestore} from 'firebase-admin'
+import type {firestore} from 'firebase'
 
 type Post = {
   id: string

@@ -1,22 +1,20 @@
-import admin from 'firebase-admin'
+import firebase from 'firebase'
 import {Merge} from 'type-fest'
+import slugify from '@sindresorhus/slugify'
 import type * as Types from 'types'
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const slugify = require('@sindresorhus/slugify')
 
 type UserDocumentData = Omit<Types.User, 'id'>
 
 type PostDocumentData = Merge<
   Omit<Types.Post, 'id'>,
   {
-    author: admin.firestore.DocumentReference<UserDocumentData>
-    createdDate: admin.firestore.Timestamp
+    author: firebase.firestore.DocumentReference<UserDocumentData>
+    createdDate: firebase.firestore.Timestamp
   }
 >
 
 async function getPosts(
-  firestore: admin.firestore.Firestore,
+  firestore: firebase.firestore.Firestore,
 ): Promise<Types.Post[]> {
   const postConverter = {
     toFirestore(post: Types.Post) {
@@ -24,12 +22,12 @@ async function getPosts(
       const {id, slug, ...rest} = post
       return {
         ...rest,
-        createdDate: new admin.firestore.Timestamp(post.createdDate, 0),
+        createdDate: new firebase.firestore.Timestamp(post.createdDate, 0),
         author: firestore.doc(`users/${authorId}`),
       }
     },
     fromFirestore(
-      snapshot: admin.firestore.QueryDocumentSnapshot<PostDocumentData>,
+      snapshot: firebase.firestore.QueryDocumentSnapshot<PostDocumentData>,
     ): Types.Post {
       const {author, ...data} = snapshot.data()
       const authorId = author.id
@@ -54,14 +52,14 @@ async function getPosts(
 }
 
 async function getUsers(
-  firestore: admin.firestore.Firestore,
+  firestore: firebase.firestore.Firestore,
 ): Promise<Types.User[]> {
   const userConverter = {
     toFirestore(user: Types.User) {
       return user
     },
     fromFirestore(
-      snapshot: admin.firestore.QueryDocumentSnapshot<UserDocumentData>,
+      snapshot: firebase.firestore.QueryDocumentSnapshot<UserDocumentData>,
     ) {
       return {...snapshot.data(), id: snapshot.id}
     },

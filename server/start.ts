@@ -1,33 +1,28 @@
-import admin from 'firebase-admin'
-import type {RequestHandler} from 'express'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
+import express, {RequestHandler} from 'express'
+import 'express-async-errors'
 import {createRequestHandler} from '@remix-run/express'
 import {getPosts} from './utils'
-
-// express uses module.exports = () => {}
-// and this makes TypeScript sad...
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const express = require('express')
 
 const app = express()
 
 app.use(express.static('public'))
 
-let googleAppCreds
-try {
-  googleAppCreds = require('../other/google-app-creds.json')
-} catch {
-  const {ELABORATE_GOOGLE_APP_CREDS} = process.env
-  if (!ELABORATE_GOOGLE_APP_CREDS) {
-    throw new Error('ELABORATE_GOOGLE_APP_CREDS env variable is required')
-  }
-  googleAppCreds = JSON.parse(ELABORATE_GOOGLE_APP_CREDS)
-}
-
-admin.initializeApp({
-  credential: admin.credential.cert(googleAppCreds),
+firebase.initializeApp({
+  apiKey: 'AIzaSyCI2PS7OUl3MCS0hhY_WZZiuGLrunIqF6c',
+  authDomain: 'elaborate-56879.firebaseapp.com',
+  databaseURL: 'https://elaborate-56879.firebaseio.com',
+  projectId: 'elaborate-56879',
+  storageBucket: 'elaborate-56879.appspot.com',
+  messagingSenderId: '246852427514',
+  appId: '1:246852427514:web:c31a2e1cb4abedaf12b343',
+  measurementId: 'G-1L1NBKCMBQ',
 })
 
-const firestore = admin.firestore()
+const firestore = firebase.firestore()
+const auth = firebase.auth()
 
 const handleGetRandom: RequestHandler = async (req, res) => {
   const posts = await getPosts(firestore)
@@ -35,6 +30,13 @@ const handleGetRandom: RequestHandler = async (req, res) => {
   res.redirect(`/posts/${randomPost.slug}`)
 }
 app.get('/posts/random', handleGetRandom)
+
+const handleLoginLink: RequestHandler = async (req, res) => {
+  const result = await auth.signInWithEmailLink('me@kentcdodds.com', req.url)
+  console.log(result)
+  res.redirect('/')
+}
+app.get('/login-link', handleLoginLink)
 
 app.get(
   '*',
