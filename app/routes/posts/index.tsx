@@ -11,7 +11,7 @@ export function meta() {
 }
 
 function Posts() {
-  const posts = useRouteData<Types.Post[]>()
+  const {posts} = useRouteData<{posts: Types.Post[]}>()
   return (
     <main className="grid max-w-lg gap-12 pt-12 m-auto">
       {posts.map(a => (

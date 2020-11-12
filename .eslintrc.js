@@ -10,6 +10,9 @@ module.exports = {
     'react/prop-types': 'off',
     'react/no-adjacent-inline-elements': 'off',
     'no-console': 'off',
+
+    // this didn't seem to work 🤔
+    '@typescript-eslint/restrict-template-expressions': 'off',
     // I can't figure these out:
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',

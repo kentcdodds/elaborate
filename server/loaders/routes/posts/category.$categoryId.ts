@@ -1,6 +1,6 @@
 import type {DataLoader} from '@remix-run/core'
 import type * as Types from 'types'
-import {getPosts} from '../../../utils'
+import {getPosts, getUsers} from '../../../utils'
 
 const loader: DataLoader = async ({
   params,
@@ -8,9 +8,12 @@ const loader: DataLoader = async ({
 }: {
   params: Record<string, string>
   context: Types.Context
-}): Promise<Types.Post[]> => {
-  const posts = await getPosts(context.firestore)
-  return posts.filter(({category}) => category === params.categoryId)
+}): Promise<{posts: Types.Post[]; users: Types.User[]}> => {
+  const posts = (await getPosts(context.firestore)).filter(
+    ({category}) => category === params.categoryId,
+  )
+  const users = await getUsers(context.firestore)
+  return {users, posts}
 }
 
 // https://github.com/remix-run/discuss/issues/14

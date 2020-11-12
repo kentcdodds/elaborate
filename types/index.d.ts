@@ -1,29 +1,23 @@
 import type * as FT from '@firebase/firestore-types'
 import type {firestore} from 'firebase-admin'
 
-type PostDocumentData = {
-  author: FT.DocumentReference<{name: string}>
-  createdDate: FT.Timestamp
-} & Omit<Types.Post, 'id'>
-
 type Post = {
   id: string
+  slug: string
   title: string
   content: string
-  author: string
+  authorId: string
   createdDate: number
   category: string
 }
 
-// https://github.com/firebase/firebase-js-sdk/pull/4055
-class FixedFirebaseFirestore extends FT.FirebaseFirestore {
-  collection<T = FT.DocumentData>(
-    collectionPath: string,
-  ): FT.CollectionReference<T>
+type User = {
+  id: string
+  name: string
 }
 
 type Context = {
-  firestore: FixedFirebaseFirestore
+  firestore: firestore.Firestore
 }
 
-export {Post, Context, FixedFirebaseFirestore as FirebaseFirestore}
+export {Post, User, Context}

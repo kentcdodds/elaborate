@@ -1,27 +1,77 @@
-import type * as FT from '@firebase/firestore-types'
+import admin from 'firebase-admin'
+import {Merge} from 'type-fest'
 import type * as Types from 'types'
 
-type PostDocumentData = {
-  author: FT.DocumentReference<{name: string}>
-  createdDate: FT.Timestamp
-} & Omit<Types.Post, 'id'>
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const slugify = require('@sindresorhus/slugify')
+
+type UserDocumentData = Omit<Types.User, 'id'>
+
+type PostDocumentData = Merge<
+  Omit<Types.Post, 'id'>,
+  {
+    author: admin.firestore.DocumentReference<UserDocumentData>
+    createdDate: admin.firestore.Timestamp
+  }
+>
 
 async function getPosts(
-  firestore: Types.FirebaseFirestore,
+  firestore: admin.firestore.Firestore,
 ): Promise<Types.Post[]> {
-  const snapshot = await firestore.collection<PostDocumentData>('posts').get()
-  const posts = await Promise.all(snapshot.docs.map(toPost))
-  return posts
+  const postConverter = {
+    toFirestore(post: Types.Post) {
+      const authorId = post.authorId
+      const {id, slug, ...rest} = post
+      return {
+        ...rest,
+        createdDate: new admin.firestore.Timestamp(post.createdDate, 0),
+        author: firestore.doc(`users/${authorId}`),
+      }
+    },
+    fromFirestore(
+      snapshot: admin.firestore.QueryDocumentSnapshot<PostDocumentData>,
+    ): Types.Post {
+      const {author, ...data} = snapshot.data()
+      const authorId = author.id
+      const createdDate = data.createdDate.toDate().getTime()
+      const {id} = snapshot
+      return {
+        ...data,
+        id,
+        slug: `${id}-${slugify(data.title)}`,
+        authorId,
+        createdDate,
+      }
+    },
+  }
+
+  return (
+    await firestore
+      .collection('posts')
+      .withConverter<Types.Post>(postConverter)
+      .get()
+  ).docs.map(doc => doc.data())
 }
 
-async function toPost(
-  doc: FT.QueryDocumentSnapshot<PostDocumentData>,
-): Promise<Types.Post> {
-  const data = doc.data()
-  const author = (await data.author.get()).data()?.name ?? 'Unknown'
-  const createdDate = data.createdDate.toDate().getTime()
-  const {title, content, category} = data
-  return {id: doc.id, createdDate, author, title, content, category}
+async function getUsers(
+  firestore: admin.firestore.Firestore,
+): Promise<Types.User[]> {
+  const userConverter = {
+    toFirestore(user: Types.User) {
+      return user
+    },
+    fromFirestore(
+      snapshot: admin.firestore.QueryDocumentSnapshot<UserDocumentData>,
+    ) {
+      return {...snapshot.data(), id: snapshot.id}
+    },
+  }
+  return (
+    await firestore
+      .collection('users')
+      .withConverter<Types.User>(userConverter)
+      .get()
+  ).docs.map(doc => doc.data())
 }
 
-export {getPosts}
+export {getPosts, getUsers}

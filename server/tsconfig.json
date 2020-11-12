@@ -3,7 +3,7 @@
   "include": ["**/*"],
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "../build",
+    "outDir": "../server-build",
     "module": "commonjs"
   }
 }

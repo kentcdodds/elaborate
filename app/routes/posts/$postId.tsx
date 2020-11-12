@@ -4,7 +4,7 @@ import * as Types from 'types'
 import {Post} from '../../components'
 
 function PostScreen() {
-  const post = useRouteData<Types.Post | null>()
+  const {post} = useRouteData<{post: Types.Post | null}>()
   if (!post) {
     return (
       <main className="grid max-w-lg gap-12 pt-12 m-auto">

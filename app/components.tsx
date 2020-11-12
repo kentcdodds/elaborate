@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {Link} from 'react-router-dom'
+import {useRouteData} from '@remix-run/react'
 import * as Types from 'types'
 
 function Header() {
@@ -40,13 +41,24 @@ const formatDate = (date: Date) =>
   }).format(date)
 
 function Post({post}: {post: Types.Post}) {
+  const {users} = useRouteData<{users: Types.User[]}>()
+  const author = users.find(({id}) => id === post.authorId) ?? {name: 'Unknown'}
   return (
-    <article className="p-4 transition duration-200 ease-in-out transform bg-gray-200 shadow-md dark:shadow-lg dark:bg-gray-700 hover:scale-105">
+    <article
+      className="p-4 transition duration-200 ease-in-out transform bg-gray-200 shadow-md dark:shadow-lg dark:bg-gray-700 hover:scale-105"
+      // tailwind doesn't have this. I'm not sure why, but this was the best way
+      // I could think to ensure that the post isn't wider than the parent if
+      // the contents of the post are too wide
+      style={{maxWidth: 'inherit'}}
+    >
       <section>
         <h1 className="pt-2 pb-6 text-3xl font-bold underline">{post.title}</h1>
-        <div className="" dangerouslySetInnerHTML={{__html: post.content}} />
+        <div
+          className="overflow-x-scroll"
+          dangerouslySetInnerHTML={{__html: post.content}}
+        />
         <footer className="pt-3 text-right">
-          <div>{post.author}</div>
+          <div>{author.name}</div>
           <time>{formatDate(new Date(post.createdDate))}</time>
         </footer>
       </section>
@@ -58,7 +70,7 @@ function Post({post}: {post: Types.Post}) {
             </Link>
           </li>
           <li>
-            <Link to={`/posts/${post.id}`} className="underline">
+            <Link to={`/posts/${post.slug}`} className="underline">
               Permalink
             </Link>
           </li>

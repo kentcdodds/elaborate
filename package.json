@@ -20,8 +20,8 @@
   "scripts": {
     "prebuild": "npm run css:build",
     "build": "cross-env NODE_ENV=production concurrently --names \"remix-build,tsc\" --prefix-colors \"magenta,blue\" \"remix build\" \"tsc --build server\"",
-    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,tsc,css,nodemon\" --prefix-colors \"magenta,blue,cyan,green\" \"remix run\" \"tsc --build server --watch --preserveWatchOutput\" \"npm run css:watch\" \"nodemon --watch 'build/loaders/**/*.*' server.js\"",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,css,nodemon\" --prefix-colors \"magenta,cyan,green\" \"remix run\" \"npm run css:watch\" \"nodemon --watch server --ext ts start.js\"",
+    "start": "cross-env NODE_ENV=production node start.js",
     "css:build": "postcss styles --base styles --dir app/ --env production",
     "css:watch": "postcss styles --base styles --dir app/ -w",
     "cy:run": "cypress run",
@@ -40,6 +40,7 @@
     "@remix-run/express": "^0.6.2",
     "@remix-run/loader": "^0.6.2",
     "@remix-run/react": "^0.6.2",
+    "@sindresorhus/slugify": "^1.1.0",
     "express": "^4.17.1",
     "firebase": "^8.0.1",
     "firebase-admin": "^9.3.0",
@@ -51,7 +52,8 @@
     "remark-parse": "^9.0.0",
     "remark-rehype": "^8.0.0",
     "tailwindcss": "^1.9.6",
-    "unified": "^9.2.0"
+    "unified": "^9.2.0",
+    "wait-on": "^5.2.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.2.0",
@@ -60,6 +62,7 @@
     "@testing-library/react": "^11.1.1",
     "@testing-library/user-event": "^12.2.0",
     "@types/estree": "0.0.45",
+    "@types/express": "^4.17.9",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
     "autoprefixer": "9.8.6",
@@ -72,6 +75,8 @@
     "nodemon": "^2.0.6",
     "postcss-cli": "7.1.2",
     "start-server-and-test": "^1.11.5",
+    "ts-node": "^9.0.0",
+    "type-fest": "^0.18.0",
     "typescript": "^4.0.5"
   },
   "husky": {
