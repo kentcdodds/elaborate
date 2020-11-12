@@ -51,6 +51,7 @@ jobs:
           HD_REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
           HD_ELABORATE_GOOGLE_APP_CREDS:
             ${{ secrets.ELABORATE_GOOGLE_APP_CREDS }}
+          HD_CYPRESS_INSTALL_BINARY: '0'
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: elaborate
