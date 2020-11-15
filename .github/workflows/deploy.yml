@@ -23,8 +23,7 @@ jobs:
           node-version: 12
 
       - name: 📥 Download deps
-        working-directory: functions
-        run: npm install
+        uses: bahmutov/npm-install@v1
 
       - name: ▶️ Run validate script
         run: npm run validate
