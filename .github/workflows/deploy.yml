@@ -49,6 +49,8 @@ jobs:
         # only deploy main branch on pushes
         if:
           ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-        run: npm run deploy -- --token "$FIREBASE_TOKEN"
+        run: |
+          sed -i ".bkp" -e "s/\${REMIX_REGISTRY_TOKEN}/$REMIX_REGISTRY_TOKEN/g" .npmrc
+          npm run deploy -- --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
