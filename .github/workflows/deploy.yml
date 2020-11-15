@@ -25,6 +25,10 @@ jobs:
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
 
+      - name: 🔥 Install firebase-tools
+        # It's used by multiple scripts so we'll just install it globally
+        run: npm install --global firebase-tools
+
       - name: ▶️ Run validate script
         run: npm run validate
 
@@ -47,6 +51,6 @@ jobs:
           ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
         run: |
           sed -i "" -e "s/\${REMIX_REGISTRY_TOKEN}/$REMIX_REGISTRY_TOKEN/g" .npmrc
-          npx firebase-tools deploy --token "$FIREBASE_TOKEN"
+          npm run deploy -- --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
