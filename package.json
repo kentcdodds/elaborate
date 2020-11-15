@@ -2,10 +2,10 @@
   "name": "elaborate",
   "version": "1.0.0",
   "engines": {
-    "node": "14"
+    "node": "12"
   },
   "description": "A place to elaborate on what you learned",
-  "main": "remix.config.js",
+  "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kentcdodds/elaborate.git"
@@ -19,15 +19,16 @@
   "homepage": "https://github.com/kentcdodds/elaborate#readme",
   "scripts": {
     "prebuild": "npm run css:build",
-    "build": "cross-env NODE_ENV=production concurrently --names \"remix-build,tsc\" --prefix-colors \"magenta,blue\" \"remix build\" \"tsc --build server\"",
-    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,css,nodemon\" --prefix-colors \"magenta,cyan,green\" \"remix run\" \"npm run css:watch\" \"nodemon --watch server --ext ts start.js\"",
-    "start": "cross-env NODE_ENV=production node start.js",
+    "build": "cross-env NODE_ENV=production concurrently --names \"remix-build,tsc\" --prefix-colors \"magenta,blue\" \"remix build\" \"tsc --build\"",
+    "dev": "cross-env NODE_ENV=development concurrently --names \"remix-run,css,firebase\" --prefix-colors \"magenta,cyan,yellow\" \"remix run\" \"npm run css:watch\" \"firebase emulators:start\"",
+    "deploy": "firebase deploy",
+    "start": "cross-env NODE_ENV=production firebase emulators:start",
     "css:build": "postcss styles --base styles --dir app/ --env production",
     "css:watch": "postcss styles --base styles --dir app/ -w",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "test:e2e": "start-server-and-test dev http://localhost:3000 cy:open",
-    "test:e2e:run": "cross-env PORT=8811 start-server-and-test start http://localhost:8811 cy:run",
+    "test:e2e": "start-server-and-test dev http://localhost:500 cy:open",
+    "test:e2e:run": "start-server-and-test start http://localhost:5000 cy:run",
     "test": "kcd-scripts test",
     "lint": "kcd-scripts lint",
     "format": "kcd-scripts format",
@@ -45,6 +46,7 @@
     "express-async-errors": "^3.1.1",
     "firebase": "^8.0.1",
     "firebase-admin": "^9.3.0",
+    "firebase-functions": "^3.11.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^6.0.0-beta.0",
@@ -88,8 +90,7 @@
   "eslintIgnore": [
     "node_modules",
     "coverage",
-    "server-build",
-    "build/public",
+    "build",
     "*.d.ts",
     "storybook-static"
   ]

@@ -1,7 +1,7 @@
 const path = require('path')
 
 if (process.env.NODE_ENV === 'production') {
-  require('./server-build/start')
+  module.exports = require('./server-build/start')
 } else {
   require('ts-node').register({
     dir: path.resolve('server'),
@@ -10,5 +10,5 @@ if (process.env.NODE_ENV === 'production') {
     ignore: ['/node_modules/, /__tests__/'],
     project: require.resolve('./server/tsconfig.json'),
   })
-  require('./server/start')
+  module.exports = require('./server/start')
 }

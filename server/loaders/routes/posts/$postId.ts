@@ -4,17 +4,14 @@ import {getPosts, getUsers} from '../../../utils'
 
 const loader: DataLoader = async ({
   params,
-  context,
 }: {
   params: Record<string, string>
-  context: Types.Context
 }): Promise<{post: Types.Post | null; users: Types.User[]}> => {
   // our URLs have the post ID + title as a slug for SEO purposes
   // but we only need the ID, so let's grab that
   const postId = params.postId.split('-')[0]
-  const post =
-    (await getPosts(context.firestore)).find(({id}) => id === postId) ?? null
-  const users = await getUsers(context.firestore)
+  const post = (await getPosts()).find(({id}) => id === postId) ?? null
+  const users = await getUsers()
   return {users, post}
 }
 

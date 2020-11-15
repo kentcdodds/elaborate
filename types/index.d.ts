@@ -16,8 +16,4 @@ type User = {
   name: string
 }
 
-type Context = {
-  firestore: firestore.Firestore
-}
-
-export {Post, User, Context}
+export {Post, User}

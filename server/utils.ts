@@ -1,4 +1,6 @@
-import firebase from 'firebase'
+import firebase from 'firebase-admin'
+import 'firebase/firestore'
+import 'firebase/auth'
 import {Merge} from 'type-fest'
 import slugify from '@sindresorhus/slugify'
 import type * as Types from 'types'
@@ -13,9 +15,11 @@ type PostDocumentData = Merge<
   }
 >
 
-async function getPosts(
-  firestore: firebase.firestore.Firestore,
-): Promise<Types.Post[]> {
+firebase.initializeApp()
+
+const firestore = firebase.firestore()
+
+async function getPosts(): Promise<Types.Post[]> {
   const postConverter = {
     toFirestore(post: Types.Post) {
       const authorId = post.authorId
@@ -51,9 +55,7 @@ async function getPosts(
   ).docs.map(doc => doc.data())
 }
 
-async function getUsers(
-  firestore: firebase.firestore.Firestore,
-): Promise<Types.User[]> {
+async function getUsers(): Promise<Types.User[]> {
   const userConverter = {
     toFirestore(user: Types.User) {
       return user

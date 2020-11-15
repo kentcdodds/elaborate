@@ -38,6 +38,7 @@ const formatDate = (date: Date) =>
     day: 'numeric',
     month: 'short',
     year: 'numeric',
+    timeZone: 'UTC',
   }).format(date)
 
 function Post({post}: {post: Types.Post}) {

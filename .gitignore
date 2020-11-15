@@ -1,8 +1,10 @@
 .vscode/
 .DS_Store
 node_modules/
+*.log
 
 /.cache
+/.firebase
 /server-build
 /public/build
 /coverage

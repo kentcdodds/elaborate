@@ -1,0 +1,52 @@
+name: deploy
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+env:
+  REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
+jobs:
+  main:
+    # ignore all-contributors PRs
+    if: ${{ !contains(github.head_ref, 'all-contributors') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: 📥 Download deps
+        working-directory: functions
+        run: npm install
+
+      - name: ▶️ Run validate script
+        run: npm run validate
+
+      - name: ⬆️ Upload coverage report
+        uses: codecov/codecov-action@v1
+
+      - name: 🌳 Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start -- --token "$FIREBASE_TOKEN"
+          wait-on: 'http://localhost:5000'
+        env:
+          NODE_ENV: production
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: 🚀 Deploy
+        # only deploy main branch on pushes
+        if:
+          ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+        run: |
+          sed -i "" -e "s/\${REMIX_REGISTRY_TOKEN}/$REMIX_REGISTRY_TOKEN/g" .npmrc
+          npx firebase-tools deploy --token "$FIREBASE_TOKEN"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

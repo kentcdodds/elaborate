@@ -6,6 +6,7 @@ module.exports = {
   },
   rules: {
     'no-undef': 'off',
+    'import/export': 'off',
     'import/no-unresolved': 'off',
     'react/prop-types': 'off',
     'react/no-adjacent-inline-elements': 'off',

@@ -4,15 +4,13 @@ import {getPosts, getUsers} from '../../../utils'
 
 const loader: DataLoader = async ({
   params,
-  context,
 }: {
   params: Record<string, string>
-  context: Types.Context
 }): Promise<{posts: Types.Post[]; users: Types.User[]}> => {
-  const posts = (await getPosts(context.firestore)).filter(
+  const posts = (await getPosts()).filter(
     ({category}) => category === params.categoryId,
   )
-  const users = await getUsers(context.firestore)
+  const users = await getUsers()
   return {users, posts}
 }
 

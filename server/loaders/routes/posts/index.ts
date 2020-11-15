@@ -2,13 +2,12 @@ import type {DataLoader} from '@remix-run/core'
 import type * as Types from 'types'
 import {getPosts, getUsers} from '../../../utils'
 
-const loader: DataLoader = async ({
-  context,
-}: {
-  context: Types.Context
-}): Promise<{posts: Types.Post[]; users: Types.User[]}> => {
-  const posts = await getPosts(context.firestore)
-  const users = await getUsers(context.firestore)
+const loader: DataLoader = async (): Promise<{
+  posts: Types.Post[]
+  users: Types.User[]
+}> => {
+  const posts = await getPosts()
+  const users = await getUsers()
   return {posts, users}
 }
 
