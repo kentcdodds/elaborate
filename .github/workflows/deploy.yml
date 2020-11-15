@@ -42,7 +42,6 @@ jobs:
           start: npm start -- --token "$FIREBASE_TOKEN"
           wait-on: 'http://localhost:5000'
         env:
-          NODE_ENV: production
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: 🚀 Deploy

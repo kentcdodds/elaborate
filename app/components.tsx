@@ -23,9 +23,9 @@ function Header() {
             </Link>
           </li>
           <li>
-            <a href="/posts/random" className="underline">
+            <Link to="/posts/random" className="underline">
               Random Post
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
