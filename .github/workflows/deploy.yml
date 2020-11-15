@@ -50,7 +50,7 @@ jobs:
         if:
           ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
         run: |
-          sed -i "" -e "s/\${REMIX_REGISTRY_TOKEN}/$REMIX_REGISTRY_TOKEN/g" .npmrc
+          sed -i ".bkp" -e "s/\${REMIX_REGISTRY_TOKEN}/$REMIX_REGISTRY_TOKEN/g" .npmrc && rm .npmrc.bkp
           npm run deploy -- --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
