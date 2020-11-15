@@ -6,8 +6,6 @@ on:
   pull_request:
     branches:
       - 'main'
-env:
-  REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 jobs:
   main:
     # ignore all-contributors PRs
@@ -21,6 +19,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      - name: 🔓 Fixup .npmrc
+        run: node ./other/update-npmrc.js
+        env:
+          REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
@@ -49,7 +52,6 @@ jobs:
         if:
           ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
         run: |
-          sed -i ".bkp" -e "s/\${REMIX_REGISTRY_TOKEN}/$REMIX_REGISTRY_TOKEN/g" .npmrc
           npm run deploy -- --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
