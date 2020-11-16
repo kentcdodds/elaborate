@@ -21,7 +21,8 @@ jobs:
           node-version: 12
 
       - name: 🔓 Fixup .npmrc
-        run: node ./other/update-npmrc.js
+        run:
+          echo "//npm.remix.run/:_authToken=${REMIX_REGISTRY_TOKEN}" >> .npmrc
         env:
           REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 
