@@ -4,6 +4,23 @@ import {useRouteData} from '@remix-run/react'
 import * as Types from 'types'
 import {Post} from '../../components'
 
+export function headers({loaderHeaders}: {loaderHeaders: Headers}) {
+  return loaderHeaders
+}
+
+export function meta({
+  data: {users, posts},
+  params,
+}: {
+  data: {users: Types.User[]; posts: Types.Post[]}
+  params: Record<string, string>
+}) {
+  return {
+    title: `${params.categoryId} posts | Elaborate`,
+    description: `${posts.length} posts by ${users.length} users about ${params.categoryId} on Elaborate`,
+  }
+}
+
 function Category() {
   const {categoryId} = useParams()
   const {posts} = useRouteData<{posts: Types.Post[]}>()

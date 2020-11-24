@@ -10,6 +10,10 @@ export function meta() {
   }
 }
 
+export function headers({loaderHeaders}: {loaderHeaders: Headers}) {
+  return loaderHeaders
+}
+
 function Posts() {
   const {posts} = useRouteData<{posts: Types.Post[]}>()
   return (
