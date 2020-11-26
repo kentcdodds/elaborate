@@ -1,16 +1,16 @@
 import * as React from 'react'
 import {Link} from 'react-router-dom'
-import {useRouteData, useLocationPending} from '@remix-run/react'
+import {useRouteData, usePendingLocation} from '@remix-run/react'
 import * as Types from 'types'
 
 function Header() {
-  const pending = useLocationPending()
+  const pendingLocation = usePendingLocation()
   return (
     <div>
       <header
         style={{animationDelay: '1s'}}
         className={`max-w-md m-auto text-center ${
-          pending ? 'animate-pulse' : ''
+          pendingLocation ? 'animate-pulse' : ''
         }`}
       >
         <h1 className="text-6xl">Elaborate</h1>

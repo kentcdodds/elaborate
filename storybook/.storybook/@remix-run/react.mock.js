@@ -65,14 +65,14 @@ function useGlobalData() {
   return comp.globalData
 }
 
-function useLocationPending() {
+function usePendingLocation() {
   const comp = getCurrentStoryComponent()
-  if (!comp.locationPending) {
+  if (!comp.pendingLocation) {
     throw new Error(
-      `Tried to get route data for a story that uses useLocationPending but does not expose locationPending: ${comp.name}`,
+      `Tried to get route data for a story that uses usePendingLocation but does not expose pendingLocation: ${comp.name}`,
     )
   }
-  return comp.locationPending
+  return comp.pendingLocation
 }
 
 export {useGlobalData, useRouteData}

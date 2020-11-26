@@ -30,8 +30,8 @@ Whatever you set `routeData` to will be the value of `data` returned by
 `useRouteData`. This should allow you to easily develop without having to
 install remix.
 
-For `useGlobalData`, it must expose `globalData`. For `useLocationPending` it's
-`locationPending`.
+For `useGlobalData`, it must expose `globalData`. For `usePendingLocation` it's
+`pendingLocation`.
 
 Oh, and another thing, this `package.json` must include all dependencies used by
 the stories because none of those dependencies will be installed in the root

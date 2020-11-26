@@ -3,11 +3,6 @@
   "include": ["**/*"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "outDir": "../server-build",
-    "module": "commonjs",
-    "paths": {
-      "*": ["./*", "../tests/*"]
-    }
+    "baseUrl": "."
   }
 }

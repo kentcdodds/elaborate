@@ -1,8 +1,7 @@
-import type {DataLoader} from '@remix-run/core'
-import {json} from '@remix-run/loader'
+import {json, Loader} from '@remix-run/data'
 import {getPosts, getUsers} from '../../../utils'
 
-const loader: DataLoader = async () => {
+export const loader: Loader = async () => {
   const posts = await getPosts()
   const users = await getUsers()
   return json(
@@ -14,6 +13,3 @@ const loader: DataLoader = async () => {
     },
   )
 }
-
-// https://github.com/remix-run/discuss/issues/14
-module.exports = loader

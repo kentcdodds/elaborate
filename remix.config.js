@@ -1,9 +1,9 @@
 module.exports = {
   appDirectory: './app',
-  loadersDirectory:
+  dataDirectory:
     process.env.NODE_ENV === 'production'
-      ? './server-build/loaders'
-      : './server/loaders',
+      ? './server-build/data'
+      : './server/data',
   serverBuildDirectory: './server-build/remix',
   browserBuildDirectory: './public/build',
   publicPath: '/build/',
